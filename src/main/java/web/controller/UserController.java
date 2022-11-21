@@ -32,7 +32,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    // @DeleteMapping не работает у моей реализации. Ошибка: There was an unexpected error (type=Method Not Allowed, status=405)..
+    // @DeleteMapping не работает у моей реализации. Ошибка: There was an unexpected error (type=Method Not Allowed, status=405).
     // При @PostMapping та же ошибка. Что логично. Работает только через @GetMapping.
     @GetMapping(value = "/delete")
     public String deleteUser(@RequestParam("userId") Long id) {
@@ -40,7 +40,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    // @PatchMapping не работает у моей реализации. Ошибка: Request method 'POST' not supported.
+    // @PatchMapping не работает у моей реализации. Ошибка: There was an unexpected error (type=Method Not Allowed, status=405).
     // При @GetMapping та же ошибка. Что логично. Работает только через @PostMapping.
     @PostMapping(value = "/update")
     public String updateUser(@ModelAttribute("editUser") User editUser) {

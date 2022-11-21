@@ -10,12 +10,12 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
-@Transactional
 public class UserServiceImp implements UserService {
 
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Transactional
     @Override
     public void create(User user) {
         entityManager.persist(user);
@@ -27,12 +27,14 @@ public class UserServiceImp implements UserService {
         return query.getResultList();
     }
 
+    @Transactional
     @Override
     public void deleteUser(Long id) {
         User user = entityManager.find(User.class, id);
         entityManager.remove(user);
     }
 
+    @Transactional
     @Override
     public void updateUser(User user) {
         entityManager.merge(user);

@@ -8,6 +8,7 @@ import web.model.User;
 import web.service.UserService;
 
 @Controller
+@RequestMapping("/")
 public class UserController {
 
     private final UserService userService;
@@ -17,7 +18,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping(value = "/")
+    @GetMapping()
     public String MainPage(@ModelAttribute("newUser") User user,
                            @ModelAttribute("editUser") User editUser,
                            Model model) {
@@ -25,19 +26,23 @@ public class UserController {
         return "index";
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @PostMapping(value = "/save")
     public String saveUser(@ModelAttribute("newUser") User user) {
         userService.create(user);
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    // @DeleteMapping не работает у моей реализации. Ошибка: There was an unexpected error (type=Method Not Allowed, status=405)..
+    // При @PostMapping та же ошибка. Что логично. Работает только через @GetMapping.
+    @GetMapping(value = "/delete")
     public String deleteUser(@RequestParam("userId") Long id) {
         userService.deleteUser(id);
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    // @PatchMapping не работает у моей реализации. Ошибка: Request method 'POST' not supported.
+    // При @GetMapping та же ошибка. Что логично. Работает только через @PostMapping.
+    @PostMapping(value = "/update")
     public String updateUser(@ModelAttribute("editUser") User editUser) {
         userService.updateUser(editUser);
         return "redirect:/";

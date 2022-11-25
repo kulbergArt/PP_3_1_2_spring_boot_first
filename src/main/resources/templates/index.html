@@ -113,7 +113,11 @@
                                 th:data-bs-target="'#editUserModal' + ${user.getId()}">Изменить
                         </button>
                     </td>
-                    <td><a th:href="@{/delete(userId=${user.getId()})}">Удалить</a></td>
+                    <td>
+                        <form th:method="DELETE" th:action="@{/delete(userId=${user.getId()})}">
+                            <input class="btn btn-outline-secondary" type="submit" value="Удалить"/>
+                        </form>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -167,7 +171,7 @@
          style="display: none">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form th:action="@{/update}" th:object="${editUser}" method="post">
+                <form th:method="PATCH" th:action="@{/update}" th:object="${editUser}">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="exampleModalLabel"
                             th:utext="'Изменить пользователя с id = ' + ${user.getId()}">VALUE</h1>
